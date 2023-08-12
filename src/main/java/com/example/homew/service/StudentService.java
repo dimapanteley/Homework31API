@@ -1,47 +1,47 @@
 package com.example.homew.service;
 
 import com.example.homew.model.Student;
+import com.example.homew.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 @Service
 public class StudentService {
-    private Map< Long, Student> studentMap=new HashMap<>();
-    private long lastStudentId=0;
-    public Student createStudent(Student student) {
-        student.setId(++lastStudentId);
-        studentMap.put(student.getId(), student);
-        return student;
+
+    private StudentRepository studentRepository;
+
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-    public Student findStudent(Long id) {
-        return studentMap.get(id);
+
+    public Student createStudent(Student student) {
+         return studentRepository.save(student);
+
+    }
+
+    public Optional<Student> findStudent(Long id) {
+        return studentRepository.findById(id);
     }
 
     public Student editStudent(Student student) {
-        if (studentMap.containsKey(student.getId())) {
-            studentMap.put(student.getId(), student);
-            return student;
-        }
-        return null;
+            return studentRepository.save(student);
+
+
     }
 
-    public Student deleteStudent(Long id) {
-        return studentMap.remove(id);
+    public  void  deleteStudent(Long id){
+         studentRepository.deleteById(id);
     }
 
     public Collection<Student> getAllStudents() {
-        return studentMap.values();
+        return studentRepository.findAll();
     }
 
     public List<Student> getStudentsAccordingAge(int age) {
-        List<Student> studentList = studentMap.values().stream()
-                .filter(student -> student.getAge() == age)
-                .collect(Collectors.toList());
-        return studentList;
+        return (List<Student>) studentRepository.findStudentByAge(age);
+
     }
 }

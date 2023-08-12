@@ -1,49 +1,51 @@
 package com.example.homew.service;
 
 import com.example.homew.model.Faculty;
+import com.example.homew.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 
 public class FacultyService {
-    private Map<Long, Faculty> facultyMap;
-    private  long lastFacultyId=0;
-    public Faculty createFaculty(Faculty faculty) {
-        faculty.setId(++lastFacultyId);
-        facultyMap.put(faculty.getId(), faculty);
-        return faculty;
+    private FacultyRepository facultyRepository;
+
+    public FacultyService(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
     }
 
-    public Faculty findFaculty(Long id) {
-        return facultyMap.get(id);
+    public Faculty createFaculty(Faculty faculty) {
+         return facultyRepository.save(faculty);
+
+    }
+
+    public Optional<Faculty> findFaculty(Long id) {
+        return  facultyRepository.findById(id);
     }
 
     public Faculty editFaculty(Faculty faculty) {
-        if (facultyMap.containsKey(faculty.getId())) {
-            facultyMap.put(faculty.getId(), faculty);
-            return faculty;
-        }
-        return null;
+        facultyRepository.save(faculty);
+        return faculty;
     }
 
-    public Faculty deleteFaculty(Long id) {
-        return facultyMap.remove(id);
+    public void deleteFaculty(Long id) {
+        facultyRepository.deleteById(id);
+
     }
 
-    public Collection<Faculty> getAllFaculties() {
-        return facultyMap.values();
+    public Collection<Faculty> getAllFaculties()
+    {
+        return facultyRepository.findAll();
     }
 
     public List<Faculty> getFacultyAccordingColor(String color) {
-        List<Faculty> facultyList = facultyMap.values().stream()
-                .filter(faculty -> faculty.getColor().equals(color))
-                .collect(Collectors.toList());
-        return facultyList;
+       return facultyRepository.findFacultyByColorContainsIgnoreCase(color);
+
+
+        }
+
+
     }
-
-
-}

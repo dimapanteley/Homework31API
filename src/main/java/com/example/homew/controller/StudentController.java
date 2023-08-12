@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -29,7 +30,7 @@ public class StudentController {
     }
     @GetMapping("{id}") //READ  http://localhost:8080/student/1
     public ResponseEntity<Student> findStudent(@RequestBody @PathVariable Long id){
-        Student student = studentService.findStudent(id);
+         Student student = studentService.findStudent(id).get();
         if(student == null){
             return ResponseEntity.notFound().build();
         }
@@ -44,8 +45,8 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
     @DeleteMapping("{id}") //DELETE  http://localhost:8080/student/1
-    public Student deleteStudent(@RequestBody @PathVariable Long id){
-        return studentService.deleteStudent(id);
+    public void  deleteStudent(@RequestBody @PathVariable Long id){
+         studentService.deleteStudent(id);
     }
     @GetMapping //READ  http://localhost:8080/student
     public ResponseEntity<Collection<Student>> getAllStudents(){
