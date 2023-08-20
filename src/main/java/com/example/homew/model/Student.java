@@ -1,17 +1,18 @@
 package com.example.homew.model;
+import javax.persistence.*;
+import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
-
+@Entity(name = "Student")
 public class Student {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private   String name;
-    private  int age;
+    private String name;
+    private int age;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
+
 
     public Student() {
     }
@@ -44,5 +45,25 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return age == student.age && id.equals(student.id) && name.equals(student.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age);
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + "\n" +
+                "имя: " + name + '\n' +
+                "возраст: " + age;
     }
 }

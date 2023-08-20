@@ -1,5 +1,5 @@
 package com.example.homew.controller;
-
+import com.example.homew.model.Faculty;
 import com.example.homew.model.Student;
 import com.example.homew.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +15,18 @@ import java.util.Optional;
 @RestController
 @RequestMapping("student")
 public class StudentController {
-    private final StudentService studentService;
+    private StudentService studentService;
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
-
-    // public StudentController(StudentService studentService) {
-    //this.studentService = studentService;
-    //}
     @PostMapping //CREATE  http://localhost:8080/student
     public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);
     }
     @GetMapping("{id}") //READ  http://localhost:8080/student/1
     public ResponseEntity<Student> findStudent(@RequestBody @PathVariable Long id){
-         Student student = studentService.findStudent(id).get();
+        Student student = studentService.findStudent(id);
         if(student == null){
             return ResponseEntity.notFound().build();
         }
@@ -45,8 +41,9 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
     @DeleteMapping("{id}") //DELETE  http://localhost:8080/student/1
-    public void  deleteStudent(@RequestBody @PathVariable Long id){
-         studentService.deleteStudent(id);
+    public ResponseEntity<Student> deleteStudent(@RequestBody @PathVariable Long id){
+        studentService.deleteStudent(id);
+        return ResponseEntity.ok().build();
     }
     @GetMapping //READ  http://localhost:8080/student
     public ResponseEntity<Collection<Student>> getAllStudents(){
@@ -55,5 +52,15 @@ public class StudentController {
     @GetMapping("/filter_by_age/{age}") //READ  http://localhost:8080/student/filter_by_age/20
     public List<Student> getStudentsAccordingAge(@PathVariable int age){
         return studentService.getStudentsAccordingAge(age);
+    }
+
+    @GetMapping("/find_age_between")
+    public List<Student> findStudentByAgeBetween(@RequestParam int minAge,
+                                                 @RequestParam int maxAge){
+        return studentService.findStudentByAgeBetween(minAge, maxAge);
+    }
+    @GetMapping("/find_student_by_faculty")
+    public List<Student> findStudentByFaculty(@RequestBody Faculty faculty){
+        return studentService.findStudentByFaculty(faculty);
     }
 }
