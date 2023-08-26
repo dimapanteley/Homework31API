@@ -8,20 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.mockito.junit.jupiter.MockitoExtension;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceTest {
@@ -48,24 +43,24 @@ public class StudentServiceTest {
     public void findStudentTest(){
         Mockito.when(studentRepository.getById(1L)).thenReturn(expectedStudent);
 
-        assertEquals(expectedStudent.getName(), studentService.findStudent(1L).getName());
-        assertEquals(expectedStudent.getAge(), studentService.findStudent(1L).getAge());
+        assertEquals(expectedStudent.getName(), studentService.findStudent(1L).get().getName());
+        assertEquals(expectedStudent.getAge(), studentService.findStudent(1L).get().getAge());
     }
 
     @Test
     public void editStudentTest(){
         Mockito.when(studentRepository.getById(1L)).thenReturn(expectedStudent);
 
-        assertEquals(expectedStudent.getName(), studentService.findStudent(1L).getName());
-        assertEquals(expectedStudent.getAge(), studentService.findStudent(1L).getAge());
+        assertEquals(expectedStudent.getName(), studentService.findStudent(1L).get().getName());
+        assertEquals(expectedStudent.getAge(), studentService.findStudent(1L).get().getAge());
 
         Student newStudent = new Student(1L,"Caesar", 33);
         studentService.editStudent(newStudent);
 
         Mockito.when(studentRepository.getById(1L)).thenReturn(newStudent);
 
-        assertEquals(newStudent.getName(), studentService.findStudent(1L).getName());
-        assertEquals(newStudent.getAge(), studentService.findStudent(1L).getAge());
+        assertEquals(newStudent.getName(), studentService.findStudent(1L).get().getName());
+        assertEquals(newStudent.getAge(), studentService.findStudent(1L).get().getAge());
     }
 
     @Test

@@ -6,9 +6,9 @@ import com.example.homew.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 
-
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -23,8 +23,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student findStudent(Long id) {
-        return studentRepository.getById(id);
+    public Optional<Student> findStudent(Long id) {
+        return studentRepository.findById(id);
     }
 
     public Student editStudent(Student student) {

@@ -4,12 +4,10 @@ import com.example.homew.model.Avatar;
 import com.example.homew.model.Student;
 import com.example.homew.repository.AvatarRepository;
 import com.example.homew.repository.StudentRepository;
-import net.bytebuddy.dynamic.DynamicType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
 import java.io.*;

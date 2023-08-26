@@ -1,8 +1,8 @@
 package com.example.homew.model;
 
-
 import javax.persistence.*;
 import java.util.Objects;
+
 @Entity(name = "Student")
 public class Student {
     @Id
@@ -68,3 +68,10 @@ public class Student {
                 "возраст: " + age;
     }
 }
+
+
+
+
+
+
+
