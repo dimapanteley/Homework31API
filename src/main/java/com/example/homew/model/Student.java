@@ -1,7 +1,8 @@
 package com.example.homew.model;
+
+
 import javax.persistence.*;
 import java.util.Objects;
-
 @Entity(name = "Student")
 public class Student {
     @Id
@@ -9,7 +10,7 @@ public class Student {
     private Long id;
     private String name;
     private int age;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 

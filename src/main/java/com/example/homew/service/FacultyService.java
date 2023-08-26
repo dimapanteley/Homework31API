@@ -5,10 +5,14 @@ import com.example.homew.model.Student;
 import com.example.homew.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
+
+import javax.annotation.PostConstruct;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.stream.Collectors;
+
 @Service
 public class FacultyService {
     private FacultyRepository facultyRepository;

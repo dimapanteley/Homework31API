@@ -20,7 +20,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 @ExtendWith(MockitoExtension.class)
 public class FacultyServiceTest {
     private FacultyService facultyService;
@@ -92,7 +91,7 @@ public class FacultyServiceTest {
                 new Faculty(2L, "1111", "синий")
         ));
 
-        when(facultyRepository.findByColor(anyString())).thenReturn(expectedList1);
+        Mockito.when(facultyRepository.findFacultyByColorContainsIgnoreCase(anyString())).thenReturn(expectedList1);
         assertEquals(expectedList1, facultyService.getFacultyAccordingColor("синий"));
 
         List<Faculty>expectedList2 = new ArrayList<>(List.of(
@@ -100,7 +99,7 @@ public class FacultyServiceTest {
                 new Faculty(4L, "3333", "зеленый")
         ));
 
-        when(facultyRepository.findByColor(anyString())).thenReturn(expectedList2);
+        Mockito.when(facultyRepository.findFacultyByColorContainsIgnoreCase(anyString())).thenReturn(expectedList2);
         assertEquals(expectedList2, facultyService.getFacultyAccordingColor("зеленый"));
     }
 }

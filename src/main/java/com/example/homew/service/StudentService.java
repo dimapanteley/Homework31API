@@ -3,8 +3,9 @@ package com.example.homew.service;
 import com.example.homew.model.Faculty;
 import com.example.homew.model.Student;
 import com.example.homew.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,7 +21,6 @@ public class StudentService {
 
     public Student createStudent(Student student) {
         return studentRepository.save(student);
-
     }
 
     public Student findStudent(Long id) {
@@ -51,4 +51,3 @@ public class StudentService {
         return studentRepository.findStudentByFaculty(faculty);
     }
 }
-

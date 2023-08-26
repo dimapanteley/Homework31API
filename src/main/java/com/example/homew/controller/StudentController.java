@@ -2,14 +2,12 @@ package com.example.homew.controller;
 import com.example.homew.model.Faculty;
 import com.example.homew.model.Student;
 import com.example.homew.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -32,12 +30,13 @@ public class StudentController {
         }
         return ResponseEntity.ok(student);
     }
-    @PutMapping("{id}") //UPDATE  http://localhost:8080/student/1
+    @PutMapping //UPDATE  http://localhost:8080/student/
     public ResponseEntity<Student> editStudent(@RequestBody Student student){
         Student edittingStudent = studentService.editStudent(student);
         if(edittingStudent == null){
             ResponseEntity.notFound().build();
         }
+        System.out.println("ResponseEntity " + ResponseEntity.ok(student));
         return ResponseEntity.ok(student);
     }
     @DeleteMapping("{id}") //DELETE  http://localhost:8080/student/1
