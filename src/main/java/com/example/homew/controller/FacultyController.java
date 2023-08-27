@@ -1,13 +1,12 @@
 package com.example.homew.controller;
+
 import com.example.homew.model.Faculty;
 import com.example.homew.model.Student;
 import com.example.homew.service.FacultyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("faculty")
@@ -22,14 +21,14 @@ public class FacultyController {
         return facultyService.createFaculty(faculty);
     }
     @GetMapping("{id}") //READ  http://localhost:8080/faculty/1
-    public ResponseEntity<Faculty> findFaculty(@RequestBody @PathVariable Long id){
-        Faculty faculty = facultyService.findFaculty(id);
+    public ResponseEntity<Faculty> findFaculty(@PathVariable Long id){
+        Faculty faculty = facultyService.findFaculty(id).orElse(null);
         if(faculty == null){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(faculty);
     }
-    @PutMapping("{id}") //UPDATE  http://localhost:8080/faculty
+    @PutMapping //UPDATE  http://localhost:8080/faculty
     public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty){
         Faculty editiedFaculty = facultyService.editFaculty(faculty);
         if(editiedFaculty == null){
@@ -38,7 +37,7 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
     @DeleteMapping("{id}") //DELETE  http://localhost:8080/faculty/1
-    public ResponseEntity deleteFaculty(@RequestBody @PathVariable Long id){
+    public ResponseEntity deleteFaculty(@PathVariable Long id){
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
@@ -49,7 +48,7 @@ public class FacultyController {
 
     @GetMapping("/filter_by_color") //READ  http://localhost:8080/faculty/filter_by_color
     public ResponseEntity getFacultyAccordingNameOrColor(@RequestParam(required = false, name = "name") String name,
-                                                         @RequestParam(required = false, name = "color") String color){
+                                                        @RequestParam(required = false, name = "color") String color){
         if (name != null && !name.isEmpty() && !name.isBlank()) {
             return ResponseEntity.ok(facultyService.getFacultyAccordingName(name));
         }

@@ -10,7 +10,7 @@ public class Student {
     private Long id;
     private String name;
     private int age;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
@@ -67,4 +67,10 @@ public class Student {
                 "имя: " + name + '\n' +
                 "возраст: " + age;
     }
+
+    public Student get() {
+
+        return null;
+    }
 }
+

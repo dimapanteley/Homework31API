@@ -6,16 +6,13 @@ import com.example.homew.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
 
-import javax.annotation.PostConstruct;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class FacultyService {
-    private FacultyRepository facultyRepository;
+   private FacultyRepository facultyRepository;
 
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
@@ -25,12 +22,12 @@ public class FacultyService {
         return facultyRepository.save(faculty);
     }
 
-    public Faculty findFaculty(Long id) {
-        return facultyRepository.getById(id);
+    public Optional<Faculty> findFaculty(Long id) {
+        return facultyRepository.findById(id);
     }
 
     public Faculty editFaculty(Faculty faculty) {
-        return facultyRepository.save(faculty);
+       return facultyRepository.save(faculty);
     }
 
     public void deleteFaculty(Long id) {
@@ -42,7 +39,7 @@ public class FacultyService {
     }
 
     public List<Faculty> getFacultyAccordingName(String name) {
-        return facultyRepository.findFacultyByNameContainingIgnoreCase(name);
+       return facultyRepository.findFacultyByNameContainingIgnoreCase(name);
     }
     public List<Faculty> getFacultyAccordingColor(String color) {
         return facultyRepository.findFacultyByColorContainsIgnoreCase(color);

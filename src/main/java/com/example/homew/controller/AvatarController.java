@@ -1,6 +1,6 @@
 package com.example.homew.controller;
 
-import com.example.homew.model.avatar;
+import com.example.homew.model.Avatar;
 import com.example.homew.service.AvatarService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,10 +16,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 @RequestMapping("avatar")
 public class AvatarController {
+    //куку
     private AvatarService avatarService;
 
     public AvatarController(AvatarService avatarService) {
@@ -40,7 +42,7 @@ public class AvatarController {
 
     @GetMapping("/{id}/avatar-from-db")
     public ResponseEntity <byte[]> downloadAvatar(@PathVariable Long id){
-        avatar avatar = avatarService.findAvatar(id);
+        Avatar avatar = avatarService.findAvatar(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
         headers.setContentLength(avatar.getData().length);
@@ -48,7 +50,7 @@ public class AvatarController {
     }
     @GetMapping(value = "/{id}/avatar-from-file")
     public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException{
-        avatar avatar = avatarService.findAvatar(id);
+        Avatar avatar = avatarService.findAvatar(id);
         Path path = Path.of(avatar.getFilePath());
         try(InputStream is = Files.newInputStream(path);
             OutputStream os = response.getOutputStream();) {
@@ -58,5 +60,11 @@ public class AvatarController {
             is.transferTo(os);
         }
     }
-}
 
+    @GetMapping("get_avatars")
+    public ResponseEntity<List<Avatar>> getAllAvatars(@RequestParam("page") int pageNumber,
+                                                      @RequestParam("size") int pageSize) {
+        List<Avatar> avatars = avatarService.getAllAvatars(pageNumber, pageSize);
+        return ResponseEntity.ok().build();
+    }
+}

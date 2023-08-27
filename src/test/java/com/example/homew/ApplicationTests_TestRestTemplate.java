@@ -1,5 +1,6 @@
 package com.example.homew;
 
+
 import com.example.homew.controller.FacultyController;
 import com.example.homew.controller.StudentController;
 import com.example.homew.model.Faculty;
@@ -13,23 +14,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 
-import javax.validation.constraints.Null;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ApplicationTests {
+class ApplicationTests_TestRestTemplate {
 
     @LocalServerPort
     private int port;
@@ -315,7 +314,7 @@ class ApplicationTests {
         try {
             assertNotNull(this.testRestTemplate.
                     getForObject(
-                            "http://localhost:" + port + "/student/find_student_by_faculty", String.class, student));
+                    "http://localhost:" + port + "/student/find_student_by_faculty", String.class, student));
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
