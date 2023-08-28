@@ -33,7 +33,7 @@ public class StudentController {
     }
     @PutMapping //UPDATE  http://localhost:8080/student/
     public ResponseEntity<Student> editStudent(@RequestBody Student student){
-        Student edittingStudent = studentService.editStudent(student);
+        Student edittingStudent = (Student) studentService.editStudent(student);
         if(edittingStudent == null){
             ResponseEntity.notFound().build();
         }

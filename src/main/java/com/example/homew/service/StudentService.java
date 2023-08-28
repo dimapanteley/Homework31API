@@ -19,14 +19,14 @@ public class StudentService {
     }
 
     public Student createStudent(Student student) {
-        return studentRepository.save(student);
+        return (Student) studentRepository.save(student);
     }
 
     public Optional<Student> findStudent(Long id) {
         return studentRepository.findById(id);
     }
 
-    public Student editStudent(Student student) {
+    public Object editStudent(Student student) {
         return studentRepository.save(student);
     }
 
