@@ -66,12 +66,12 @@ public class StudentController {
     }
 
     @GetMapping("/get_quantity_of_all_students")
-    public List<Integer> getQuantityOfAllStudents(){
+    public Integer getQuantityOfAllStudents(){
         return studentService.getQuantityOfAllStudents();
     }
 
     @GetMapping("/get_average_age")
-    public List<Double> getAverageAge(){
+    public Double getAverageAge(){
         return studentService.getAverageAge();
     }
 

@@ -50,11 +50,11 @@ public class StudentService {
         return studentRepository.findStudentByFaculty(faculty);
     }
 
-    public List<Integer> getQuantityOfAllStudents() {
+    public Integer getQuantityOfAllStudents() {
         return studentRepository.getQuantityOfAllStudents();
     }
 
-    public List<Double> getAverageAge() {
+    public Double getAverageAge() {
         return studentRepository.getAverageAge();
     }
 
