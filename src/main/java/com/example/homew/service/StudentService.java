@@ -1,9 +1,11 @@
 package com.example.homew.service;
 
+import com.example.homew.enitity.FiveLastStudents;
 import com.example.homew.model.Faculty;
 import com.example.homew.model.Student;
 import com.example.homew.repository.StudentRepository;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Collection;
 import java.util.List;
@@ -18,16 +20,16 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student createStudent(Student student) {
-        return (Student) studentRepository.save(student);
+    public Object createStudent(Student student)  {
+        return studentRepository.save(student);
     }
 
     public Optional<Student> findStudent(Long id) {
         return studentRepository.findById(id);
     }
 
-    public Object editStudent(Student student) {
-        return studentRepository.save(student);
+    public Student editStudent(Student student) {
+        return (Student) studentRepository.save(student);
     }
 
     public void deleteStudent(Long id) {
@@ -50,15 +52,15 @@ public class StudentService {
         return studentRepository.findStudentByFaculty(faculty);
     }
 
-    public Integer getQuantityOfAllStudents() {
+    public List<Integer> getQuantityOfAllStudents() {
         return studentRepository.getQuantityOfAllStudents();
     }
 
-    public Double getAverageAge() {
+    public List<Double> getAverageAge() {
         return studentRepository.getAverageAge();
     }
 
-    public List<Object> getFiveLastStudents() {
+    public List<FiveLastStudents> getFiveLastStudents() {
         return studentRepository.getFiveLastStudents();
     }
 }

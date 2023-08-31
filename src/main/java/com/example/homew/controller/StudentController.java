@@ -1,5 +1,6 @@
 package com.example.homew.controller;
 
+import com.example.homew.enitity.FiveLastStudents;
 import com.example.homew.model.Faculty;
 import com.example.homew.model.Student;
 import com.example.homew.service.StudentService;
@@ -20,7 +21,7 @@ public class StudentController {
         this.studentService = studentService;
     }
     @PostMapping //CREATE  http://localhost:8080/student
-    public Student createStudent(@RequestBody Student student){
+    public Object createStudent(@RequestBody Student student){
         return studentService.createStudent(student);
     }
     @GetMapping("{id}") //READ  http://localhost:8080/student/1
@@ -33,7 +34,7 @@ public class StudentController {
     }
     @PutMapping //UPDATE  http://localhost:8080/student/
     public ResponseEntity<Student> editStudent(@RequestBody Student student){
-        Student edittingStudent = (Student) studentService.editStudent(student);
+        Student edittingStudent = studentService.editStudent(student);
         if(edittingStudent == null){
             ResponseEntity.notFound().build();
         }
@@ -66,17 +67,17 @@ public class StudentController {
     }
 
     @GetMapping("/get_quantity_of_all_students")
-    public Integer getQuantityOfAllStudents(){
+    public List<Integer> getQuantityOfAllStudents(){
         return studentService.getQuantityOfAllStudents();
     }
 
     @GetMapping("/get_average_age")
-    public Double getAverageAge(){
+    public List<Double> getAverageAge(){
         return studentService.getAverageAge();
     }
 
     @GetMapping("/get_five_last_students")
-    public List<Object> getFiveLastStudents(){
+    public List<FiveLastStudents> getFiveLastStudents(){
         return studentService.getFiveLastStudents();
     }
 }

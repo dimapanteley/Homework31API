@@ -169,7 +169,7 @@ class ApplicationTests_TestRestTemplate {
     @Test
     void deleteStudentTest() {
         //нахожу последнего студента, сохраняю его в переменную, а так же и его id, ...
-        Student lastStudent = studentRepository.findById(findLastStudentId()).orElse(null);
+        Student lastStudent = (Student) studentRepository.findById(findLastStudentId()).orElse(null);
         Long lastStudentId = (lastStudent == null) ? null : lastStudent.getId();
 
         //...после чего я его удалю, используя запрос контроллера, и...
