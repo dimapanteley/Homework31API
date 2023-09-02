@@ -1,8 +1,8 @@
 package com.example.homew.model;
 
-
 import javax.persistence.*;
 import java.util.Objects;
+
 @Entity(name = "Student")
 public class Student {
     @Id
@@ -10,7 +10,7 @@ public class Student {
     private Long id;
     private String name;
     private int age;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
@@ -48,6 +48,14 @@ public class Student {
         this.age = age;
     }
 
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,10 +75,11 @@ public class Student {
                 "имя: " + name + '\n' +
                 "возраст: " + age;
     }
-
-    public Student get() {
-
-        return null;
-    }
 }
+
+
+
+
+
+
 
