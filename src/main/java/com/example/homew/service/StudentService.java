@@ -20,7 +20,7 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Object createStudent(Student student)  {
+    public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
 
@@ -29,7 +29,7 @@ public class StudentService {
     }
 
     public Student editStudent(Student student) {
-        return (Student) studentRepository.save(student);
+        return studentRepository.save(student);
     }
 
     public void deleteStudent(Long id) {
@@ -62,5 +62,9 @@ public class StudentService {
 
     public List<FiveLastStudents> getFiveLastStudents() {
         return studentRepository.getFiveLastStudents();
+    }
+
+    public List<Student> findStudentByName(String name) {
+        return studentRepository.findStudentByNameContainingIgnoreCase(name);
     }
 }

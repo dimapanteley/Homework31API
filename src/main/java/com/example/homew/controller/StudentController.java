@@ -21,7 +21,7 @@ public class StudentController {
         this.studentService = studentService;
     }
     @PostMapping //CREATE  http://localhost:8080/student
-    public Object createStudent(@RequestBody Student student){
+    public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);
     }
     @GetMapping("{id}") //READ  http://localhost:8080/student/1
@@ -79,5 +79,11 @@ public class StudentController {
     @GetMapping("/get_five_last_students")
     public List<FiveLastStudents> getFiveLastStudents(){
         return studentService.getFiveLastStudents();
+    }
+
+    @GetMapping("/find_by_name/{name}")
+    public ResponseEntity<List<Student>> findStudentByAge(@PathVariable String name) {
+        List<Student> students = studentService.findStudentByName(name);
+        return ResponseEntity.ok(students);
     }
 }

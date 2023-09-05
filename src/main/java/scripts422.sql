@@ -2,9 +2,7 @@ create table person (
                         id serial primary key ,
                         name varchar(225),
                         age int,
-                        vehicle_owner boolean,
-                        vehicle_id int references vehicle (id) );
-
+                        vehicle_owner boolean);
 
 create table vehicle (
                          id serial primary key ,
@@ -13,6 +11,10 @@ create table vehicle (
                          cost money);
 
 alter table person add column vehicle_id serial;
+
+alter table vehicle add constraint unique_vehicle unique (model);
+
+
 
 select student.name, student.age, faculty.name
 from student
