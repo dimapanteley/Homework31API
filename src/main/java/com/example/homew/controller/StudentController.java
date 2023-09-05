@@ -1,11 +1,11 @@
 package com.example.homew.controller;
 
+import com.example.homew.enitity.FiveLastStudents;
 import com.example.homew.model.Faculty;
 import com.example.homew.model.Student;
 import com.example.homew.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +33,7 @@ public class StudentController {
     }
     @PutMapping //UPDATE  http://localhost:8080/student/
     public ResponseEntity<Student> editStudent(@RequestBody Student student){
-        Student edittingStudent = (Student) studentService.editStudent(student);
+        Student edittingStudent = studentService.editStudent(student);
         if(edittingStudent == null){
             ResponseEntity.notFound().build();
         }
@@ -76,7 +76,13 @@ public class StudentController {
     }
 
     @GetMapping("/get_five_last_students")
-    public List<Object> getFiveLastStudents(){
+    public List<FiveLastStudents> getFiveLastStudents(){
         return studentService.getFiveLastStudents();
+    }
+
+    @GetMapping("/find_by_name/{name}")
+    public ResponseEntity<List<Student>> findStudentByAge(@PathVariable String name) {
+        List<Student> students = studentService.findStudentByName(name);
+        return ResponseEntity.ok(students);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.homew.service;
 
+import com.example.homew.enitity.FiveLastStudents;
 import com.example.homew.model.Faculty;
 import com.example.homew.model.Student;
 import com.example.homew.repository.StudentRepository;
@@ -19,14 +20,14 @@ public class StudentService {
     }
 
     public Student createStudent(Student student) {
-        return (Student) studentRepository.save(student);
+        return studentRepository.save(student);
     }
 
     public Optional<Student> findStudent(Long id) {
         return studentRepository.findById(id);
     }
 
-    public Object editStudent(Student student) {
+    public Student editStudent(Student student) {
         return studentRepository.save(student);
     }
 
@@ -58,7 +59,11 @@ public class StudentService {
         return studentRepository.getAverageAge();
     }
 
-    public List<Object> getFiveLastStudents() {
+    public List<FiveLastStudents> getFiveLastStudents() {
         return studentRepository.getFiveLastStudents();
+    }
+
+    public List<Student> findStudentByName(String name) {
+        return studentRepository.findStudentByNameContainingIgnoreCase(name);
     }
 }

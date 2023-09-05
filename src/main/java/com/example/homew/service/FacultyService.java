@@ -5,7 +5,6 @@ import com.example.homew.model.Student;
 import com.example.homew.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -47,5 +46,9 @@ public class FacultyService {
 
     public Faculty findFacultyByStudent(Student student) {
         return facultyRepository.findFacultyByStudent(student);
+    }
+
+    public List<Faculty> findFacultyByNameAndColor(String name, String color){
+        return facultyRepository.findFacultyByNameContainingIgnoreCaseAndColorContainingIgnoreCase(name, color);
     }
 }
