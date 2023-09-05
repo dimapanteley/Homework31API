@@ -19,7 +19,7 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student createStudent(Student student) {
+     public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
 
