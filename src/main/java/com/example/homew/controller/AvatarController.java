@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("avatar")
-public class AvatarController {
+public class AvatarController { //
     //куку
     private AvatarService avatarService;
 

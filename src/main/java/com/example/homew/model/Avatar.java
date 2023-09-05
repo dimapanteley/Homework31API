@@ -1,7 +1,7 @@
 package com.example.homew.model;
 
 import javax.persistence.*;
-
+//
 @Entity
 public class Avatar {
     @Id

@@ -23,3 +23,4 @@ from student
 select s.id, s.name, avtr.id
 from student as s
          inner join avatar avtr on s.id = avtr.student_id;
+//

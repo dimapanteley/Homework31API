@@ -123,3 +123,4 @@ public class AvatarService {
         return avatarRepository.findAll(pageRequest).getContent();
     }
 }
+//
