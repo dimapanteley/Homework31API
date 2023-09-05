@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: Dpanteley/scripts/course-four-lerse-four-lesson-three.sql
