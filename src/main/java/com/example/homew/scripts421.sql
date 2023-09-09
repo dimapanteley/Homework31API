@@ -11,4 +11,3 @@ alter table student alter column age set default 20;
 
 
 
-//

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("avatar")
-public class AvatarController { //
+public class AvatarController {
     //куку
     private AvatarService avatarService;
 

@@ -1,7 +1,9 @@
 package com.example.homew.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity(name = "Faculty")
@@ -12,7 +14,8 @@ public class Faculty {
     private String name;
     private String color;
     @OneToMany (mappedBy = "faculty")
-    private List<Student> student;
+    @JsonIgnore
+    private Collection<Student> student;
 
     public Faculty() {
     }
@@ -47,7 +50,15 @@ public class Faculty {
         this.color = color;
     }
 
-     @Override
+    public Collection<Student> getStudent() {
+        return student;
+    }
+
+    public void setStudent(Collection<Student> student) {
+        this.student = student;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -55,7 +66,7 @@ public class Faculty {
         return id.equals(faculty.id) && name.equals(faculty.name) && color.equals(faculty.color);
     }
 
-     @Override
+    @Override
     public int hashCode() {
         return Objects.hash(id, name, color);
     }
@@ -66,9 +77,4 @@ public class Faculty {
                 "название факультета:" + name + '\n' +
                 "цвет факультета: " + color + '\n';
     }
-
-    public Faculty get() {
-        return null;
-    }
 }
-//

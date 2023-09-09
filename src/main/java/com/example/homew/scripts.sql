@@ -22,4 +22,3 @@ group by name, age;
 select * from student, faculty;
 
 
-//
