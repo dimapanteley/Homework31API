@@ -20,7 +20,7 @@ public class FacultyController {
     }
 
     @PostMapping //CREATE  http://localhost:8080/faculty
-    public Faculty createStudent(@RequestBody Faculty faculty) {
+    public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.createFaculty(faculty);
     }
 
@@ -75,5 +75,15 @@ public class FacultyController {
                                                                    @RequestParam String color) {
         List<Faculty> faculties = facultyService.findFacultyByNameAndColor(name, color);
         return ResponseEntity.ok(faculties);
+    }
+
+    @GetMapping("/get_longest_faculty_name")
+    public Faculty getLongestFacultyName() {
+        return facultyService.getLongestFacultyName();
+    }
+
+    @GetMapping("/get_integer_number")
+    public int getIntegerNumber() {
+        return facultyService.getIntegerNumber();
     }
 }

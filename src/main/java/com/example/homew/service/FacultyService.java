@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class FacultyService {
@@ -65,5 +67,18 @@ public class FacultyService {
     public List<Faculty> findFacultyByNameAndColor(String name, String color) {
         logger.debug("Вызван метод findFacultyByNameAndColor");
         return facultyRepository.findFacultyByNameContainingIgnoreCaseAndColorContainingIgnoreCase(name, color);
+    }
+
+    public Faculty getLongestFacultyName() {
+        return facultyRepository.findAll().stream()
+                .max(Comparator.comparing(faculty -> faculty.getName().length()))
+                .orElse(null);
+    }
+
+    public int getIntegerNumber() {
+        return Stream
+                .iterate(1, a -> a + 1)
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b);
     }
 }
