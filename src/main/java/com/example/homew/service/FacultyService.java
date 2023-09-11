@@ -76,9 +76,11 @@ public class FacultyService {
     }
 
     public int getIntegerNumber() {
-        return Stream
-                .iterate(1, a -> a + 1)
+        int sum = Stream
+                .iterate(1, a -> a +1)
+                .parallel()
                 .limit(1_000_000)
-                .reduce(0, (a, b) -> a + b);
+                .reduce(0, (a, b) -> a + b );
+        return sum;
     }
 }
