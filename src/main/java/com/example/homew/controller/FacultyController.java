@@ -19,10 +19,12 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
+
     @PostMapping //CREATE  http://localhost:8080/faculty
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.createFaculty(faculty);
     }
+
 
     @GetMapping("{id}") //READ  http://localhost:8080/faculty/1
     public ResponseEntity<Faculty> findFaculty(@PathVariable Long id) {
@@ -33,6 +35,7 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
+
     @PutMapping //UPDATE  http://localhost:8080/faculty
     public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty) {
         Faculty editiedFaculty = facultyService.editFaculty(faculty);
@@ -42,16 +45,19 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
+
     @DeleteMapping("{id}") //DELETE  http://localhost:8080/faculty/1
     public ResponseEntity deleteFaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
 
+
     @GetMapping //READ  http://localhost:8080/faculty
     public ResponseEntity<Collection<Faculty>> getAllFaculties() {
         return ResponseEntity.ok(facultyService.getAllFaculties());
     }
+
 
     @GetMapping("/filter_by_color") //READ  http://localhost:8080/faculty/filter_by_color
     public ResponseEntity getFacultyAccordingNameOrColor(@RequestParam(required = false, name = "name") String name,
@@ -70,6 +76,7 @@ public class FacultyController {
         return facultyService.findFacultyByStudent(student);
     }
 
+
     @GetMapping("/find_by_name_color")
     public ResponseEntity<List<Faculty>> findFacultyByNameAndColor(@RequestParam String name,
                                                                    @RequestParam String color) {
@@ -77,10 +84,12 @@ public class FacultyController {
         return ResponseEntity.ok(faculties);
     }
 
+
     @GetMapping("/get_longest_faculty_name")
     public Faculty getLongestFacultyName() {
         return facultyService.getLongestFacultyName();
     }
+
 
     @GetMapping("/get_integer_number")
     public int getIntegerNumber() {
