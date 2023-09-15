@@ -11,11 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudentService {
@@ -88,7 +86,12 @@ public class StudentService {
         return studentRepository.findStudentByNameContainingIgnoreCase(name);
     }
 
-
+    /**
+     * The method capitalise first letters of student's names,
+     * then looking all students whose name start from "A",
+     * and then sort them in alphabetic order. Collection of sorted
+     * students returns from method.
+     */
     public List<Student> getStudentsAlphabetOrder() {
         logger.debug("Called method getStudentsAlphabetOrder");
         return studentRepository.findAll().stream()
@@ -100,7 +103,9 @@ public class StudentService {
                 .collect(Collectors.toList()); //puts the result to list
     }
 
-
+    /**
+     * The method returns average age of students using StreamAPI.
+     */
     public double getMiddleAgeOfStudents() {
         logger.debug("Called method getMiddleAgeOfStudents");
         return studentRepository.findAll().stream()
@@ -109,50 +114,57 @@ public class StudentService {
                 .orElse(0d);//returns the result or 0 if there is no any students ages
     }
 
-
+    /**
+     * The method contains two threads just to see order of executions methods into each thread.
+     * the method created for educational purposes.
+     */
     public void doStudentsThread() {
         logger.debug("Called method doStudentsThread");
         System.out.println("Name of the 0 student: " + studentRepository.findAll().get(0).getName());
+        logger.debug("Called method doStudentsThread");
         System.out.println("Name of the 1st student: " + studentRepository.findAll().get(1).getName());
 
         Thread thread1 = new Thread(() -> {//Threat object creating.
             System.out.println("Name of the 2nd student: " + studentRepository.findAll().get(2).getName());
+            logger.debug("Called method doStudentsThread");
             System.out.println("Name of the 3rd student: " + studentRepository.findAll().get(3).getName());
+            logger.debug("Called method doStudentsThread");
         });
         thread1.start();//Thread starting
 
         Thread thread2 = new Thread(() -> {
             System.out.println("Name of the 4th student: " + studentRepository.findAll().get(4).getName());
+            logger.debug("Called method doStudentsThread");
             System.out.println("Name of the 5th student: " + studentRepository.findAll().get(5).getName());
+            logger.debug("Called method doStudentsThread");
         });
         thread2.start();
     }
 
-
+    /**
+     * The method contains two threads with thread synchronization.
+     */
     public void doSynchronizedStudentsThread() {
-        logger.debug("Called method doSynchronizedStudentsThread");
-        System.out.println("Name of the 0 student: " + studentRepository.findAll().get(0).getName());
-        System.out.println("Name of the 1st student: " + studentRepository.findAll().get(1).getName());
-
-        Thread thread1 = new Thread(() -> {
-            synchronized (StudentService.class) {/*The synchronized method in this code locks access to
-                                                    a specific block of code simultaneously for multiple threads.*/
-                System.out.println("Name of the 2nd student: " + studentRepository.findAll().get(2).getName());
-            }
-            synchronized (StudentService.class) {
-                System.out.println("Name of the 3rd student: " + studentRepository.findAll().get(3).getName());
-            }
+        List<Student> students = studentRepository.findAll();
+        printStud(students);
+        printStud(students);
+        Thread thread = new Thread(() -> {
+            printStud(students);
+            printStud(students);
         });
-        thread1.start();
-
         Thread thread2 = new Thread(() -> {
-            synchronized (StudentService.class) {
-                System.out.println("Name of the 4th student: " + studentRepository.findAll().get(4).getName());
-            }
-            synchronized (StudentService.class) {
-                System.out.println("Name of the 5th student: " + studentRepository.findAll().get(5).getName());
-            }
+            printStud(students);
+            printStud(students);
         });
-        thread2.start();
+    }
+
+    public void printStud(List<Student> students) {
+        int count=0;
+        Integer flag=0;
+        synchronized (flag) {
+            System.out.println(students.get(count).getName());
+            count++;
+        }
     }
 }
+
