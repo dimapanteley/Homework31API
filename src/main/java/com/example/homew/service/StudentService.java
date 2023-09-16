@@ -144,7 +144,7 @@ public class StudentService {
      */
     public void doSynchronizedStudentsThread() {
         List<Student> students = studentRepository.findAll();
-        // printStud(students);
+         printStud(students);
         printStud(students);
         Thread thread = new Thread(() -> {
             printStud(students);
@@ -163,7 +163,7 @@ public class StudentService {
         int count=0;
         Integer flag=0;
         synchronized (flag) {
-            System.out.println(students.get(count).getName());
+            logger.debug(students.get(count).getName());
             count++;
         }
     }
