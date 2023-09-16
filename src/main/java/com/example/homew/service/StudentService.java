@@ -119,24 +119,22 @@ public class StudentService {
      * the method created for educational purposes.
      */
     public void doStudentsThread() {
+        List<Student>studentList=studentRepository.findAll();
         logger.debug("Called method doStudentsThread");
-        System.out.println("Name of the 0 student: " + studentRepository.findAll().get(0).getName());
-        logger.debug("Called method doStudentsThread");
-        System.out.println("Name of the 1st student: " + studentRepository.findAll().get(1).getName());
+        logger.debug("Name of the 0 student: " + studentRepository.findAll().get(0).getName());
+        logger.debug("Name of the 1st student: " + studentRepository.findAll().get(1).getName());
 
         Thread thread1 = new Thread(() -> {//Threat object creating.
-            System.out.println("Name of the 2nd student: " + studentRepository.findAll().get(2).getName());
-            logger.debug("Called method doStudentsThread");
-            System.out.println("Name of the 3rd student: " + studentRepository.findAll().get(3).getName());
-            logger.debug("Called method doStudentsThread");
+            logger.debug("Name of the 2nd student: " + studentRepository.findAll().get(2).getName());;
+            logger.debug("Name of the 3rd student: " + studentRepository.findAll().get(3).getName());
+
+
         });
         thread1.start();//Thread starting
 
         Thread thread2 = new Thread(() -> {
-            System.out.println("Name of the 4th student: " + studentRepository.findAll().get(4).getName());
-            logger.debug("Called method doStudentsThread");
-            System.out.println("Name of the 5th student: " + studentRepository.findAll().get(5).getName());
-            logger.debug("Called method doStudentsThread");
+            logger.debug("Name of the 4th student: " + studentRepository.findAll().get(4).getName());
+            logger.debug("Name of the 5th student: " + studentRepository.findAll().get(5).getName());
         });
         thread2.start();
     }
@@ -146,10 +144,13 @@ public class StudentService {
      */
     public void doSynchronizedStudentsThread() {
         List<Student> students = studentRepository.findAll();
-        printStud(students);
+        // printStud(students);
         printStud(students);
         Thread thread = new Thread(() -> {
             printStud(students);
+            synchronized (StudentService.class) {
+                logger.debug("Name of the 3rd student: " + studentRepository.findAll().get(3).getName());
+            }
             printStud(students);
         });
         Thread thread2 = new Thread(() -> {
