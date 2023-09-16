@@ -15,8 +15,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
+
 @Service
 public class StudentService {
+    private  Integer flag=0;
     private StudentRepository studentRepository;
     Logger logger = LoggerFactory.getLogger(StudentService.class);
 
@@ -142,6 +145,7 @@ public class StudentService {
     /**
      * The method contains two threads with thread synchronization.
      */
+
     public void doSynchronizedStudentsThread() {
         List<Student> students = studentRepository.findAll();
          printStud(students);
@@ -159,10 +163,10 @@ public class StudentService {
         });
     }
 
+
     public void printStud(List<Student> students) {
         int count=0;
-        Integer flag=0;
-        synchronized (flag) {
+        {
             logger.debug(students.get(count).getName());
             count++;
         }
